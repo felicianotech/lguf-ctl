@@ -1,0 +1,32 @@
+name: lguf-cli
+title: "LG UltraFine CLI"
+version: "0.1.0"
+summary: "A Dynamic DNS client for VPS cloud providers."
+description: |
+  Cloud Unpacked DynDNS is a dynamic DNS client that uses VPS cloud providers such as Linode for DNS. This tool allows pointing a DNS hostname such as `home.example.com` to an IP address that may change regularly. The typical scenario is having a domain name point to your home IP address however those that travel a lot would find it useful as well.
+license: MIT
+base: core18
+grade: stable
+confinement: strict
+#adopt-info: cu-ddns
+#icon: "img/logo-badge-circle.svg"
+
+parts:
+  lguf-cli:
+    plugin: dump
+    source: .
+    override-build: |
+      snapcraftctl build
+      cp src/lguf-cli $SNAPCRAFT_PART_INSTALL
+      chmod +x $SNAPCRAFT_PART_INSTALL/lguf-cli
+      #snapcraftctl set-version $(cat VERSION)
+    stage-packages:
+      - libusb-1.0-0
+
+apps:
+  lguf-cli:
+    command: lguf-cli
+    plugs:
+      - raw-usb
+      - hardware-observe
+      - uhid
