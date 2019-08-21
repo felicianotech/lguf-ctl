@@ -14,6 +14,16 @@ var getCmd = &cobra.Command{
 	Short: "Gets the current brightness level of the monitor",
 	Run: func(cmd *cobra.Command, args []string) {
 
+		clientMode, err := cmd.Flags().GetBool("client")
+		if err != nil {
+			log.Fatal("Fatal: Couldn't read for --client flag.")
+		}
+
+		if clientMode {
+			fmt.Println("Client mode is on")
+		}
+		return
+
 		conn, err := lguf.NewConnection()
 		if err != nil {
 			log.Fatalf("%v", err)

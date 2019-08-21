@@ -23,6 +23,8 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
+
+	rootCmd.PersistentFlags().Bool("client", false, "Run in client mode")
 }
 
 func initConfig() {
